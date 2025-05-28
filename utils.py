@@ -60,9 +60,17 @@ class Work :
         with open('/usr/share/ai-shell/data.json', 'r') as file :
             self.chat = json.load(file)['active_chat']
 
-    def new_message(self, message: str) :
+    def new_message(self, message: str) -> str :
         history = self.Files.get_history(self.chat)
         history = self.AI.send_response(history, message)
         self.Files.load_history(self.chat, history)
         return history[-1]['content']
     
+    def set_active_chat(self, name_chat: str) -> int :
+        with open('/usr/share/ai-shell/data.json', 'r') as file :
+            data = json.load(file)
+        if not name_chat in data['chats'] :
+            return 1
+        data['active_chat'] = name_chat
+        with open('/usr/share/ai-shell/data.json', 'w') as file :
+            json.dump(data, file, indent=4)
