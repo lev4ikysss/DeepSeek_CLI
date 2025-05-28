@@ -65,3 +65,4 @@ class Work :
         history = self.AI.send_response(history, message)
         self.Files.load_history(self.chat, history)
         return history[-1]['content']
+    
