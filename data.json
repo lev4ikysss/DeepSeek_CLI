@@ -1,3 +1,7 @@
 {
-    "chats": []
+    "url": "your url",
+    "model": "your model",
+    "token": "your token",
+    "chats": [],
+    "active_chat": ""
 }
