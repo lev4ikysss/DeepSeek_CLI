@@ -50,15 +50,27 @@ class Files :
         with open('/usr/share/ai-shell/data.json', 'r') as file :
             data = json.load(data)
         data['chats'].append(name_chat)
+        with open(f'/usr/share/ai-shell/data.json', 'w') as file :
+            json.dump(data, file, indent=4)
         with open(f'/usr/share/ai-shell/chats/{name_chat}', 'w') as file :
+            json.dump([], file, indent=4)
+
+    def change_data(url: str, model: str, token: str) -> None :
+        with open('/usr/share/ai-shell/data.json', 'r') as file :
+            data = json.load(data)
+        data['url'] = url
+        data['model'] = model
+        data['token'] = token
+        with open(f'/usr/share/ai-shell/data.json', 'w') as file :
             json.dump({}, file, indent=4)
 
 class Work :
-    def __init__(self, url: str, model: str, token: str) :
-        self.AI = AI(token, url, model)
-        self.Files = Files()
+    def __init__(self) :
         with open('/usr/share/ai-shell/data.json', 'r') as file :
-            self.chat = json.load(file)['active_chat']
+            data = json.load(file)
+            self.chat = data['active_chat']
+            self.AI = AI(data['token'], data['url'], data['model'])
+        self.Files = Files()
 
     def new_message(self, message: str) -> str :
         history = self.Files.get_history(self.chat)

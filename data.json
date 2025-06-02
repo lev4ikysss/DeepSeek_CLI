@@ -2,6 +2,6 @@
     "url": "your url",
     "model": "your model",
     "token": "your token",
-    "chats": [],
-    "active_chat": ""
+    "chats": ["base_chat"],
+    "active_chat": "base_chat"
 }
